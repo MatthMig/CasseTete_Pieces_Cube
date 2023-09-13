@@ -11,13 +11,29 @@ def put_piece_in_cube(piece,cube):
             current_face_index = i
             break
 
+    cubes_result = []
+
     # In case of inital face we just put it in the cube
     if current_face_index == 0:
         cube[0] = piece
         return [cube]
     
     #In case of putting another face
-    
+    elif current_face_index == 1:
+        target = [int(not i) for i in cube[0][0]]
+        for i,s in enumerate(piece):
+            if s == target:
+                cube_copy = cube.copy()
+                cube_copy[0][0] = [1]*5
+                cube_copy[1] = [piece[(j+i)%4] for j in range(4)]
+                cube_copy[1][0] = [1]*5
+                cubes_result.append(cube_copy)
+            if [s[4-i] for i in range(4)] == target:
+                cube_copy = cube.copy()
+                cube_copy[0][0] = [1]*5
+                cube_copy[1] = [piece[(j+i)%4] for j in range(4)]
+                cube_copy[1][0] = [1]*5
+                cubes_result.append(cube_copy)
 
 # DFS back-tracking algorithm with brute force
 def make_cube(pieces_list,cube=None):
